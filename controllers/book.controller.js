@@ -79,7 +79,7 @@ exports.deleteBook = (req, res, next) => {
         if (book.userId !== req.auth.userId) {
             res.status(401).json({ message: "Vous ne pouvez pas modifier ce livre." });
         } else {
-            const filename = book.imageUrl.split("/images/")[1];
+            const filename = book.imageUrl.split("/book_picture/")[1];
             console.log(filename);
             fs.unlink(`images/${filename}`, (err) => {
                 if (err) {
@@ -94,7 +94,7 @@ exports.deleteBook = (req, res, next) => {
             });
         }
     }).catch((error) => {
-        res.status(500).json({ "Une erreur est survenue durant la supréssion": error });
+        res.status(500).json({ "Une erreur est survenue durant la supréssion ": error });
     });
 };
 exports.ratingBook = (req, res) => {
