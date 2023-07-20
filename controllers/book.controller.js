@@ -131,7 +131,7 @@ exports.ratingBook = (req, res) => {
 
 exports.getTopBooks = async (req, res) => {
     try {
-        const books = await bookModel.find().sort({averageRating: 4}).limit(3);
+        const books = await bookModel.find().sort({averageRating: "desc"}).limit(3);
         res.status(200).json(books);
     } catch (error) {
         res.status(500).json({error: "récupération des livres échoué"});
