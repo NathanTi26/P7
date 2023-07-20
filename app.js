@@ -5,6 +5,8 @@ const app = express();
 const mongoose = require("mongoose");
 const bookRoutes = require("./routes/book.routes");
 const userRoute = require("./routes/user.routes");
+require("dotenv").config({path: "./database/.env"});
+
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -21,7 +23,9 @@ app.use((req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://nathantiteca26:MXvM3NNG3owaQMBl@cluster0.xietljj.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://" +
+    process.env.DB_USER_PASS +
+    "@cluster0.xietljj.mongodb.net/?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))

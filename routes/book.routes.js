@@ -10,6 +10,7 @@ router.get("/:id", bookController.getBookById);
 router.post("/", authMiddleware, multer, bookController.addBook);
 router.put("/:id", authMiddleware, multer, bookController.modifyBook);
 router.delete("/:id", authMiddleware, bookController.deleteBook);
+router.get("/bestrating", bookController.getTopBooks);
 router.post('/:id/rating', authMiddleware, bookController.ratingBook);
 
 module.exports = router;

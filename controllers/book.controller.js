@@ -60,6 +60,8 @@ exports.modifyBook = (req, res) => {
         if (book.userId !== req.auth.userId) {
             res.status(401).json({ message: "Vous ne pouvez pas modifier ce livre." });
         } else {
+
+            bookModel.deleteOne({ _id: req.params.id })
             bookModel.updateOne(
                 { _id: req.params.id },
                 { ...bookObject, _id: req.params.id }
@@ -125,4 +127,14 @@ exports.ratingBook = (req, res) => {
     }).then((book) => {
         res.status(200).json(book);
     }).catch((error) => res.status(400).json({ error }));
+};
+
+exports.getTopBooks = async (req, res) => {
+    try {
+        const books = await bookModel.find().sort({averageRating: -1}).limit(3);
+        res.status(200).json(books);
+    } catch (error) {
+        res.status(500).json({error: "récupération des livres échoué"});
+        console.log("Erreur:", error);
+    }
 };
